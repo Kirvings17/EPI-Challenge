@@ -21,3 +21,9 @@ Setup
     * From the project src folder, run:
     `python main.py`
 - Follow the instructions in the terminal.
+
+
+Assumption: 
+- All numeric fields (area_km2, pop, lifeExp, gdpPercap) must be greater than or equal to 0.
+- lifeExp values are assumed to be realistic and therefore cannot exceed 120 years.
+- String values are treated as case-sensitive unless normalized during cleaning. For example, "San Diego" and "San diego" would be considered different values unless explicitly standardised.

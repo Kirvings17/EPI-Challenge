@@ -18,6 +18,11 @@ def print_menu():
     print("E - Run all")
     print("F - Show Menu Again")
     print("Q - Quit")
+    
+def print_main_menu():
+    print("\n=== Data Menu ===")
+    print("A - Analyse Data")
+    print("B - Filter/Statistic Data")
 
 def main():
     print("Welcome to EPI Code Challenge!!!")
@@ -33,38 +38,46 @@ def main():
         if prompt_yes_no() == "Y":
             export_path = export_clean_data(cleaned_data, file_name)
             print(f"Cleaned data exported to: {export_path}")
-
-        # Analysis 
-        print_menu()
-        while True:
-            analysis_command = input("Enter command: ").strip().upper()
-
-            if analysis_command =="A":
-                get_continent_with_most_countries(cleaned_data)
-
-            elif analysis_command =="B":
-                get_region_with_largest_combined_area_sq_km(cleaned_data)
-
-            elif analysis_command== "C":
-                get_country_with_highest_life_expectancy(cleaned_data)
-
-            elif analysis_command =="D":
-                get_subregion_with_lowest_and_highest_average_gdp_per_capita(cleaned_data)
-
-            elif analysis_command =="E":
-                get_continent_with_most_countries(cleaned_data)
-                get_region_with_largest_combined_area_sq_km(cleaned_data)
-                get_country_with_highest_life_expectancy(cleaned_data)
-                get_subregion_with_lowest_and_highest_average_gdp_per_capita(cleaned_data)
-            elif analysis_command == "F":
+        while True :
+            print_main_menu()
+            analysis_main_command = input("Enter command: ").strip().upper()
+            if analysis_main_command =="A":
+                # Analysis 
                 print_menu()
-                
-            elif analysis_command == "Q":
-                print("Session Ended")
-                break
+                while True:
+                    analysis_command = input("Enter command: ").strip().upper()
 
+                    if analysis_command =="A":
+                        get_continent_with_most_countries(cleaned_data)
+
+                    elif analysis_command =="B":
+                        get_region_with_largest_combined_area_sq_km(cleaned_data)
+
+                    elif analysis_command== "C":
+                        get_country_with_highest_life_expectancy(cleaned_data)
+
+                    elif analysis_command =="D":
+                        get_subregion_with_lowest_and_highest_average_gdp_per_capita(cleaned_data)
+
+                    elif analysis_command =="E":
+                        get_continent_with_most_countries(cleaned_data)
+                        get_region_with_largest_combined_area_sq_km(cleaned_data)
+                        get_country_with_highest_life_expectancy(cleaned_data)
+                        get_subregion_with_lowest_and_highest_average_gdp_per_capita(cleaned_data)
+                    elif analysis_command == "F":
+                        print_menu()
+                        
+                    elif analysis_command == "Q":
+                        print("Session Ended")
+                        break
+
+                    else:
+                        print("Invalid option. Please choose A, B, C, D, E, or Q.")
+            elif analysis_main_command =="B":
+                print("TODO: FILTER/STATISTIC DATA CODE")
+            
             else:
-                print("Invalid option. Please choose A, B, C, D, E, or Q.")
+                print("Invalid option. Please choose A or B.")
 
     except Exception as e:
         print(f"\nError: {e}")

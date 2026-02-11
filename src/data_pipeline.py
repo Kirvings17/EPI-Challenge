@@ -4,7 +4,6 @@ import uuid
 
 def open_file(file_name):
     file_path = get_file_path(file_name)
-
     if file_path.suffix == ".csv":
         data = pd.read_csv(file_path, index_col=0,  na_values=["#N/A"])
     elif file_path.suffix in {".xls", ".xlsx"}:
@@ -51,7 +50,7 @@ def validate_data_type(data):
     for column in ["area_km2","pop","lifeExp", "gdpPercap"] :
         data[column] = pd.to_numeric(data[column], errors="coerce")
         if(column == "lifeExp" ):
-            # asusme max age expectancy is not more than 120 none inclusive
+            # assume max age expectancy is not more than 120 none inclusive
             data.loc[((data[column]<0)  | (data[column]>120 )), column] = pd.NA
         else:
             data.loc[data[column]<0 , column] = pd.NA
@@ -59,6 +58,7 @@ def validate_data_type(data):
 
     
 def remove_duplicated_colum(data): 
+    # remove comuns if they are cahgne once it is loaded by renaming it
     base_names = data.columns.str.replace(r"\.\d+$", "", regex=True)
     data = data.loc[:, ~base_names.duplicated()]
     return data 
@@ -73,7 +73,6 @@ def export_clean_data(clean_data, file_name):
     file_path =get_file_path(file_name[:-4]+random_uuid +file_name[-4:])
     if file_path.suffix == ".csv":
         clean_data.to_csv(file_path, index=False)
-    
     else:
         clean_data.to_excel(file_path, index=False)
     return file_path
